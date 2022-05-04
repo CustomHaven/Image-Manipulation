@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class ImageProcessing {
     public static void main(String[] args) {
         // The provided images are apple.jpg, flower.jpg, and kitten.jpg
-        int[][] imageData = imgToTwoD("./apple.jpg");
+        int[][] imageData = imgToTwoD("images/apple.jpg");
         // Or load your own image using a URL!
         // int[][] imageData = imgToTwoD("https://content.codecademy.com/projects/project_thumbnails/phaser/bug-dodger.png");
         // viewImageData(imageData);
@@ -200,8 +200,8 @@ public class ImageProcessing {
     }
     // Utility Methods
     public static int[][] imgToTwoD(String inputFileOrLink) {
+        BufferedImage image = null;
         try {
-            BufferedImage image = null;
             if (inputFileOrLink.substring(0, 4).toLowerCase().equals("http")) {
                 URL imageUrl = new URL(inputFileOrLink);
                 image = ImageIO.read(imageUrl);
@@ -209,7 +209,8 @@ public class ImageProcessing {
                     System.out.println("Failed to get image from provided URL.");
                 }
             } else {
-                image = ImageIO.read(new File(inputFileOrLink));
+                File inputFile = new File(inputFileOrLink);
+                image = ImageIO.read(inputFile);
             }
             int imgRows = image.getHeight();
             int imgCols = image.getWidth();
